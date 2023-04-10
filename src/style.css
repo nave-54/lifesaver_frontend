@@ -1,0 +1,19 @@
+form
+{
+    padding-left: 20px;
+    padding-right: 20px;
+   
+}
+tr{
+    padding-left: 500px;
+    padding-bottom: 100px;
+}
+thead{
+    text-align: center;
+    padding: 20px;
+}
+td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+}
