@@ -13,6 +13,7 @@ import Newpass from './components/Newpass';
 import { Signup } from './components/Signup';
 import { Login } from './components/login';
 import Donated from './components/Donated';
+import Profile from './components/Profile';
 function App() {
   return (
     <div>
@@ -26,7 +27,7 @@ function App() {
                 <Route path="/forgotpass" element={<Forgot />}></Route>
                 <Route path="/changepass" element={<Newpass />}></Route>
                 <Route path="/need" element={<><Navs/><Need/></>}></Route>
-                <Route path='/success' element={<Success />}></Route>
+                <Route path='/profile' element={<><Navs/><Profile /></>}></Route>
               </Routes>
       </Auth>
     </div>

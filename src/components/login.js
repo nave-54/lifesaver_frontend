@@ -32,8 +32,10 @@ export const Login=()=>{
             },3000)
             }
             else{
-                navigate("/donated")
-            }
+                setTimeout(()=>{
+                    navigate("/donated")
+                },3000)
+                }
         })
         .catch((data)=>{
             toast.error(data.response.data)

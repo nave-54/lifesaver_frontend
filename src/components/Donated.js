@@ -9,57 +9,133 @@ import '../mystyle.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Donated = () => {
-    
+    const navigate = useNavigate()
     const [data,setData] = useState([])
-    useEffect(() => {
-        const na = localStorage.getItem("user")
+    const [name,setname] = useState("")
+      const [pn,setpn] = useState("")
+      const [dob,setdob] = useState("")
+      const [email,setemail] = useState("")
+      const [anum,setanum] = useState("")
+      const [gen,setgen] = useState("Select")
+      const [st,setst] = useState("Select")
+      const [dis,setdis] = useState("Select")
+      const [weight,setweight] = useState("")
+      const [bgrp,setbgrp] = useState("Select")
+      const [add,setadd] = useState("")
+      const [pin,setpin] = useState("")
+      const [btn,setbtn] = useState(true)
+      const [disabled,setdisabled] = useState(true)
+      const na = localStorage.getItem("user")
     const myObject = JSON.parse(na);
-    const obj ={
-        pno : myObject.upno
-    }
-    console.log(myObject.upno)
-        api.post("/donated",obj)
+    const load=async()=>{
+        console.log("Loaded")
+        const obj ={
+            pno : myObject.upno
+        }
+        await api.post("/donated",obj)
         .then(res=>{
-            setData(res.data);
-            console.log(res.data)
-    
+            console.log(res.data[0])
+            if(res.data!=null)
+        {
+            setname(res.data[0].name)
+            setpn(res.data[0].pno)
+            setemail(res.data[0].email)
+            setdob(res.data[0].dob)
+            setanum(res.data[0].anum)
+            setst(res.data[0].state)
+            setgen(res.data[0].gen)
+            setpin(res.data[0].pin) 
+            setdis(res.data[0].dist)
+            setweight(res.data[0].weight)
+            setadd(res.data[0].addrs)
+            setbgrp(res.data[0].bgrp)
+        }
         })
         .catch(data=>{
-            console.log("NOt")
+            console.log("fact")
+            setbtn(true)
+            setdisabled(true)
         })
-      }, []);
-//     const [name,setname] = useState("")
-//     const [pn,setpn] = useState("")
-//     const [dob,setdob] = useState("")
-//     const [email,setemail] = useState("")
-//     const [anum,setanum] = useState("")
-//     const [gen,setgen] = useState("Select")
-//     const [st,setst] = useState("Select")
-//     const [dis,setdis] = useState("Select")
-//     const [weight,setweight] = useState("")
-//     const [bgrp,setbgrp] = useState("Select")
-//     const [add,setadd] = useState("")
-//     const [pin,setpin] = useState("")
-    
-    
-    
+
+
+    }
+    useEffect(() => {
+        load();
+               
+      },[]);
+    const edit=(event)=>{
+        event.preventDefault()
+        if(bgrp==="Select")
+        {
+            toast.error("Blood Group Not Selected")
+            
+        }
+        else if(gen==="Select")
+        {
+            toast.error("Gender Not Selected")
+        }
+        else if(st==="Select")
+        {
+            toast.error("State Not Selected")
+        }
+        else if(dis==="Select")
+        {
+            toast.error("District Not Selected")
+        }
+        else if(pin.length!=6)
+        {
+            toast.error("Enter Valid Pincode")
+        }
+        else
+        {
+        const store = {
+            id : myObject.uid,
+            name : name,
+            pno : pn,
+            email : email,
+            dob : dob,
+            anum : anum,
+            bgrp : bgrp ,
+            weight : weight ,
+            gen : gen,
+            state : st,
+            dist : dis,
+            pin : pin,
+            addrs : add
+        }
+        api.post("/donate",store)
+        .then((response)=>{
+           
+                toast.success("Successfully Updated")
+                setdisabled(true)
+                setbtn(true)
+                setTimeout(()=>{
+                    navigate("/donated")
+                },2000)
+           
+        })
+        .catch(()=>{
+            toast.error("Please Enter the corect data")
+        })
+    }
+    }
   return (
     <div className="container">
             <br></br>
             <center>
             <h2 className="dform">DONATION FORM</h2>
             <hr></hr>
-            <form className="dform">
+            <form className="dform" onSubmit={edit}>
                 <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-4 col-sm-12">
                 <lable>Name :  </lable>
-                <input type="text" disabled placeholder="Eg: Ram" value={data[0].name} className="form-control"></input>
+                <input type="text" disabled placeholder="Eg: Ram" required = "required" value={name} className="form-control" onChange={(e)=>{setname(e.target.value)}}></input>
                 <br></br>
-               </div>
+                </div> 
                 <div className="col-md-4 col-sm-12">
                 <lable>Email Id :  </lable>
-                <input type="text" disabled placeholder=" Eg: abc@gmail.com" value={data[0].email} className="form-control"></input>
+                <input type="text" disabled required = "required" placeholder=" Eg: abc@gmail.com" value={email} className="form-control" onChange={(e)=>{setemail(e.target.value)}}></input>
                 <br></br>
                 </div>
                 
@@ -68,21 +144,22 @@ const Donated = () => {
                 <div className="col-md-2"></div>
                 <div className="col-md-4 col-sm-12">
                 <lable>Phone Number : </lable>
-                <input typr="text" disabled placeholder="8888888888" className="form-control" value={data[0].pno}></input>
+                <input typr="text" disabled required = "required" placeholder="8888888888" className="form-control" value={pn} onChange={(e)=>{setpn(e.target.value)}}></input>
                 <br></br></div>
                 <div className="col-md-4 col-sm-12">
                 <lable>Aadhaar Number : (Optional)</lable>
-                <input type="text" placeholder="0000 0000 0000" disabled className="form-control" value={data[0].anum}></input>
+                <input type="text" disabled={disabled} placeholder="0000 0000 0000" className="form-control" value={anum} onChange={(e)=>{setanum(e.target.value)}}></input>
                 <br></br></div>
                 </div>
                 <div className="row">
                 <div className="col-md-2"></div>
                 <div className="col-md-3 col-sm-12"><lable>Date Of Birth : </lable>
-                <input type="date" value={data[0].dob} className="form-control" disabled></input>
+                <input type="date" disabled={disabled} required = "required" value={dob} className="form-control" onChange={(e)=>{setdob(e.target.value)}}></input>
                 </div>
                 <div className="col-md-3 col-sm-12">
                 <lable>Blood Group : </lable>
-                <select value={data[0].bgrp} disabled className="form-control">
+                <select value={bgrp} disabled={disabled} required = "required" className="form-control" onChange={(e)=>{setbgrp(e.target.value);
+                }}>
                     <option>Select</option>
                     <option>A positive (A+)</option>
                     <option>A negative (A-)</option>
@@ -96,7 +173,7 @@ const Donated = () => {
                 </div>
                 <div className="col-md-2">
                     <label>Weight (Kgs) : </label>
-                    <input type="text" placeholder="50kg and above" disabled value={data[0].weight} className="form-control"></input>
+                    <input type="text" disabled={disabled} required = "required" placeholder="50kg and above" value={weight} className="form-control" onChange={(e)=>{setweight(e.target.value)}}></input>
                     <br></br>
                 </div>
              </div>
@@ -104,12 +181,19 @@ const Donated = () => {
              <div className="col-md-2"></div>
                 <div className="col-md-4 col-sm-12">
              <lable>Gender : &ensp;</lable>
-            <input type="text" value={data[0].gen} disabled></input>
+             <select value={gen} disabled={disabled} required = "required" className="form-control" onChange={(e)=>{setgen(e.target.value)}}>
+                <option>Select</option>
+                <option>Male</option>
+                <option>Female</option>
+             </select>
                 <br></br>
             </div>
             <div className="col-md-4 col-sm-12">
             <lable>State : </lable>
-            <input type="text" value={data[0].state} disabled></input>
+                <select className="form-control" disabled={disabled} required = "required" value={st} onChange={(e)=>{setst(e.target.value);e.preventDefault()}}>
+                    <option>Select</option>
+                    <option>TamilNadu</option>
+                </select>
                
                 <br></br>
             </div>
@@ -120,7 +204,7 @@ const Donated = () => {
              
             <div className="col-md-12 col-sm-12">
             <lable>District : </lable>
-                <select className="form-control" required = "required" value={data[0].dist}>
+                <select className="form-control" disabled={disabled} required = "required" value={dis} onChange={(e)=>{setdis(e.target.value);e.preventDefault()}}>
                     <option>Select</option>
                 <option>	Ariyalur	</option>
                 <option>	Chengalpattu	</option>
@@ -167,18 +251,21 @@ const Donated = () => {
                 </div>
                 <div className="col-md-12 col-sm-12">
                 <lable>Pincode : </lable>
-                <input type="text" required = "required" placeholder="Enter Pincode" className="form-control" value={data[0].pin}></input>
+                <input type="text" disabled={disabled} required = "required" placeholder="Enter Pincode" className="form-control" value={pin} onChange={(e)=>{setpin(e.target.value)}}></input>
                 <br></br>
                 </div>
                </div>
                <div className="col-md-4 col-sm-12">
                 <lable>Address : (Optional)</lable>
                 <br></br>
-                <textarea placeholder="Enter your Permanent Address : " rows="5" cols="500" className="form-control" value={data[0].add}></textarea>
+                <textarea disabled={disabled} placeholder="Enter your Permanent Address : " rows="5" cols="500" className="form-control" value={add} onChange={(e)=>{setadd(e.target.value.toLowerCase())}}></textarea>
                 <br></br>
                 </div></div>
-                <input type="submit" value="Submit" className="btn btn-primary"></input><ToastContainer />
-            <br></br><br></br></form>
+                {btn?<button className="btn btn-primary" onClick={()=>{
+                    setbtn(!btn)
+                    setdisabled(!disabled)
+                }}>Edit</button>:<input type="submit" className="btn btn-danger" value="Submit"></input>}
+            <br></br><br></br></form><ToastContainer />
             </center>
         </div>
   

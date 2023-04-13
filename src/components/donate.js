@@ -8,15 +8,17 @@ import api from "./Axios";
 import '../mystyle.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
 export function Donate()
 {
     const na = localStorage.getItem("user")
     const myObject = JSON.parse(na);
-    console.log(myObject)
-    const [name,setname] = useState(myObject.uname)
-    const [pn,setpn] = useState(myObject.upno)
+    // console.log(myObject)
+    const [name,setname] = useState("")
+    const [id,setid] = useState("")
+    const [pn,setpn] = useState("")
     const [dob,setdob] = useState("")
-    const [email,setemail] = useState(myObject.uemail)
+    const [email,setemail] = useState("")
     const [anum,setanum] = useState("")
     const [gen,setgen] = useState("Select")
     const [st,setst] = useState("Select")
@@ -27,18 +29,21 @@ export function Donate()
     const [pin,setpin] = useState("")
     const [data,setData] = useState([])
     const navigate = useNavigate()
-    // if(myObject!=null)
+    useEffect(()=>{
+        if(myObject!=null)
+        {
+            setid(myObject.uid)
+            setname(myObject.uname)
+            setemail(myObject.uemail)
+            setpn(myObject.upno)
+        }
+    },[])
+    // if(myObject===null)
     // {
-    //     setname(myObject.uname)
+    //     return(<div>
+    //         <h1>Please Login and Donate</h1>
+    //     </div>)
     // }
-    if(myObject===null)
-    {
-        return(<div>
-            <h1>Please Login and Donate</h1>
-        </div>)
-    }
-    else{
-
     const donate =(e)=>
     {
         e.preventDefault()
@@ -65,6 +70,7 @@ export function Donate()
         }
         else{
         const store = {
+            id : id,
             name : name,
             pno : pn,
             email : email,
@@ -91,6 +97,9 @@ export function Donate()
     }
     return(
         <div className="container">
+            {myObject===null?<div><br></br><br></br><h1 className="dform mx-auto">Please Login and donate redirecting... </h1>{setTimeout(()=>{
+                navigate("/login")
+            },3000)}</div>:<div>
             <br></br>
             <center>
             <h2 className="dform">DONATION FORM</h2>
@@ -125,7 +134,7 @@ export function Donate()
                 <div className="col-md-2"></div>
                 <div className="col-md-3 col-sm-12"><lable>Date Of Birth : </lable>
                 <input type="date" required = "required" value={dob} className="form-control" onChange={(e)=>{setdob(e.target.value)}}></input>
-                </div>
+                <br></br></div>
                 <div className="col-md-3 col-sm-12">
                 <lable>Blood Group : </lable>
                 <select value={bgrp} required = "required" className="form-control" onChange={(e)=>{setbgrp(e.target.value);
@@ -139,7 +148,7 @@ export function Donate()
                     <option>O negative (O-)</option>
                     <option>AB positive (AB+)</option>
                     <option>AB negative (AB-)</option>
-                </select>
+                </select><br></br>
                 </div>
                 <div className="col-md-2">
                     <label>Weight (Kgs) : </label>
@@ -234,8 +243,8 @@ export function Donate()
                 <input type="submit" value="Submit" className="btn btn-primary"></input><ToastContainer />
             <br></br><br></br></form>
             </center>
-        </div>
+        </div>}</div>
     )
     
-}
+
 }

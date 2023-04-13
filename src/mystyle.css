@@ -18,6 +18,12 @@ nav .navbar-nav a
     margin-right: 50px;
     margin-left : 20px;
 }
+:disabled{
+    background-color: #f2f2f2;
+    color: #a0a0a0;
+    border: none;
+    box-shadow: none;
+}
 #cartcon
 {
     align-items: center;

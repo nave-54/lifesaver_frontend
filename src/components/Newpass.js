@@ -53,10 +53,10 @@ const Newpass = () => {
       <input type="text" disabled className="form-control" value={name}></input></div></div>
       <br></br>
       <div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Enter new Password : </label>
-      <input type="text" className="form-control" value={newpass} onChange={(e)=>setnewpass(e.target.value)}></input></div></div>
+      <input type="password" className="form-control" value={newpass} onChange={(e)=>setnewpass(e.target.value)}></input></div></div>
       <br></br>
       <div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Re-Enter new Password : </label>
-      <input type="text" className="form-control" value={rnewpass} onChange={(e)=>setrnewpass(e.target.value)}></input></div></div>
+      <input type="password" className="form-control" value={rnewpass} onChange={(e)=>setrnewpass(e.target.value)}></input></div></div>
       <br></br><button className='btn btn-primary' onClick={passchange}>Change</button><ToastContainer />
       <br></br>
       </div></div>

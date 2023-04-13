@@ -2,10 +2,8 @@ import {React,useEffect,useState} from 'react'
 import '../style.css'
 import "../bootstrap.min.css";
 import { useAuth,Auth } from './Auth'
-import axios from 'axios';
+import api from "./Axios";
 const Need = () => {
-    const a = useAuth()
-    const lst1 = a.lst
     const [flag,setflag] = useState(false)
     const [bgrp,setbgrp] = useState("")
     const [dis,setdis] = useState("")
@@ -19,7 +17,6 @@ const Need = () => {
     
   return (
     <div className="dform">
-      <br></br>
       <center>
       <h1>VOLUNTEER DONATING DETAILS</h1>
       

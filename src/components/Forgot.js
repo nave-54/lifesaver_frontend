@@ -6,6 +6,7 @@ import api from "./Axios";
 import {useAuth} from './Auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 const Forgot = () => {
   const navigate = useNavigate()
   const auth = useAuth()
@@ -15,6 +16,17 @@ const Forgot = () => {
   const [pg,setpg] = useState(true)
   const [otp,setotp]  =useState(true)
   const [otphold,setotphold] = useState("")
+  const [disabled,setdisabled] = useState(false)
+  const na = localStorage.getItem("user")
+  const myObject = JSON.parse(na);
+  useEffect(()=>{
+    if(myObject!=null)
+    {
+      setusername(myObject.upno)
+      setdisabled(true)
+      setfusername(myObject.upno)
+    }
+  },[])
   const otpverify=()=>
   {
     const obj={
@@ -76,10 +88,10 @@ const Forgot = () => {
     <div className='container dform mx-auto'>
        <br></br>
         
-             <center><h2 id="bold">Forgot Password ?</h2></center>
+             <center><h2 id="bold">Forgot/Change Password ?</h2></center>
              <hr></hr>
              {pg?<div><div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Email (OR) Phone Number :</label>
-      <input type="text" className="form-control" value={username} onChange={(e)=>setusername(e.target.value)}></input></div></div>
+      <input type="text" className="form-control" disabled={disabled} value={username} onChange={(e)=>setusername(e.target.value)}></input></div></div>
       <br></br>
       <div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Enter Current Password : </label>
       <input type="password" className="form-control" value={curpass} onChange={(e)=>setcurpass(e.target.value)}></input></div></div>
@@ -89,19 +101,19 @@ const Forgot = () => {
       <button className="btn btn-danger" onClick={()=>{
         setpg(!pg)
         setotp(true)
-      }}>Other ways to Recover</button></div>:<div>
+      }}>Other ways to Change</button></div>:<div>
           
       {otp?<div><div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Email (OR) Phone Number :</label>
-      <input type="text" className="form-control" value={fusername} onChange={(e)=>setfusername(e.target.value)}></input></div></div>
+      <input type="text" className="form-control" disabled={disabled} value={fusername} onChange={(e)=>setfusername(e.target.value)}></input></div></div>
       <br></br>
       <button className="btn btn-danger margin" onClick={otpcall}>Get Otp !!!</button><button className="btn btn-success" onClick={()=>{
         setpg(!pg)
         setotp(true)
       }}>Back</button></div>:<div>
       <div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Email (OR) Phone Number :</label>
-      <input type="text" className="form-control" disabled value={fusername} onChange={(e)=>setfusername(e.target.value)}></input></div></div>
+      <input type="text" className="form-control"  disabled={disabled}  value={fusername} onChange={(e)=>setfusername(e.target.value)}></input></div></div>
       <br></br><div className='row'><div className='col-md-4'></div><div className='col-md-4'><label>Enter Otp : </label>
-      <input type="text" className="form-control" placeholder='Please Enter OTP' name={otphold} onChange={(e)=>setotphold(e.target.value)}></input></div></div><br></br><button className="btn btn-danger" onClick={otpverify}>Verify</button><button className="btn btn-success" onClick={()=>{
+      <input type="text" className="form-control" placeholder='Please Enter OTP' name={otphold} onChange={(e)=>setotphold(e.target.value)}></input></div></div><br></br><button className="btn btn-danger" onClick={otpverify}>Verify</button><button className="btn btn-success margin" onClick={()=>{
        setotp(true)
       }}>Back</button></div>}
       
