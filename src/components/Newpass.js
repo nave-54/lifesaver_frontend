@@ -26,7 +26,7 @@ const Newpass = () => {
                 .then(response=>{
                     toast.success(response.data)
                     localStorage.removeItem("femail",response.data)
-                    console.log(response.data)
+                    // console.log(response.data)
                     setTimeout(()=>{
                         navigate("/login")
                     },3000)
@@ -39,7 +39,7 @@ const Newpass = () => {
         }
         else{
             toast.error("Password Must be 8-16 Characters")
-            console.log("Error")
+            // console.log("Error")
         }
     }
     

@@ -28,18 +28,18 @@ export const Signup=()=>{
             pass : pass,
             cpass:cpass
         }
-        console.log(email);
+        // console.log(email);
         api.post("/signup",signup)
         .then((response)=>{
-            console.log("Success")
+            // console.log("Success")
             toast.success(response.data)
             setTimeout(() => {
                 navigate('/login');
               }, 3000);
         })
         .catch(data=>{
-            console.log("kiii")
-            console.log(data.response.data)
+            // console.log("kiii")
+            // console.log(data.response.data)
             toast.error(data.response.data)
         })
     }
@@ -84,7 +84,7 @@ export const Signup=()=>{
                         </div><div>
                         <button id="loginbutton"className="btn btn-success" onClick={()=>navigate("/login")}>Login</button>
                         </div>
-                        
+                        <br></br>
         </div>
     )
 }

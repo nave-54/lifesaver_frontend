@@ -14,20 +14,21 @@ import { Signup } from './components/Signup';
 import { Login } from './components/login';
 import Donated from './components/Donated';
 import Profile from './components/Profile';
+import Footer from './components/Footer';
 function App() {
   return (
     <div>
       <Auth>
               <Routes>
-                <Route path="/" element={<><Navs/><Main/></>}></Route>
-                <Route path="/donate" element={<><Navs/><Donate/></>}></Route>
-                <Route path="/donated" element={<><Navs/><Donated/></>}></Route>
-                <Route path="/signup" element={<><Navs/><Signup/></>}></Route>
+                <Route path="/" element={<><Navs/><Main/><Footer /></>}></Route>
+                <Route path="/donate" element={<><Navs/><Donate/><Footer /></>}></Route>
+                <Route path="/donated" element={<><Navs/><Donated/><Footer /></>}></Route>
+                <Route path="/signup" element={<><Navs/><Signup/><Footer /></>}></Route>
                 <Route path="/login" element={<><Navs/><Login/></>}></Route>
                 <Route path="/forgotpass" element={<Forgot />}></Route>
                 <Route path="/changepass" element={<Newpass />}></Route>
-                <Route path="/need" element={<><Navs/><Need/></>}></Route>
-                <Route path='/profile' element={<><Navs/><Profile /></>}></Route>
+                <Route path="/need" element={<><Navs/><Need/><Footer /></>}></Route>
+                <Route path='/profile' element={<><Navs/><Profile /><Footer /></>}></Route>
               </Routes>
       </Auth>
     </div>

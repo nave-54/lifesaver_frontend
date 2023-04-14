@@ -7,17 +7,19 @@ const Need = () => {
     const [flag,setflag] = useState(false)
     const [bgrp,setbgrp] = useState("")
     const [dis,setdis] = useState("")
+    const [pin,setpin] = useState("")
     const [data,setData] = useState([])
     const [t1,sett1] = useState([])
     useEffect(()=>{
         api.get('/need')
-      .then(res=>{setData(res.data);console.log(res.data)})
+      .then(res=>{setData(res.data);})
      
     },[])
     
   return (
     <div className="dform">
       <center>
+        <br></br><br></br>
       <h1>VOLUNTEER DONATING DETAILS</h1>
       
       {flag?<div>
@@ -79,6 +81,8 @@ const Need = () => {
 
                 </select>
                 <br></br>
+                
+                <br></br>
               <button className="btn btn-primary" onClick={()=>{
                 setflag(!flag)
                 setbgrp("")
@@ -129,7 +133,7 @@ const Need = () => {
         </thead>
         
         {data.map(x=>
-            ((bgrp=="" && x.dist===dis)||(x.bgrp===bgrp && dis==="") || (x.bgrp===bgrp && x.dist===dis))?<tr>
+            ((bgrp=="" && x.dist===dis)||(x.bgrp===bgrp && dis==="") || (x.bgrp===bgrp && x.dist===dis))?<tr className="dform">
               <td>{x.name}</td>
               <td>{x.pno}</td>
               <td>{x.dob}</td>
@@ -137,7 +141,7 @@ const Need = () => {
               <td>{x.state}</td>
               <td>{x.dist}</td>
               <td>{x.addrs}</td>
-     </tr>:""
+     </tr>:<div className='dform'><br></br><h2>No Results Found</h2></div>
           )}
         
             

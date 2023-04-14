@@ -39,7 +39,7 @@ const Profile = () => {
             
             localStorage.removeItem("user")
             navigate("/login")
-          }, 2000);
+          }, 4000);
           setedit(false)
           setdisabled(true)
           
@@ -51,6 +51,9 @@ const Profile = () => {
    }
   return (
     <div className="dform container">
+      {myObject===null?<div><br></br><br></br><h1 className="dform mx-auto">Please Login and view profile redirecting... </h1>{setTimeout(()=>{
+                navigate("/login")
+            },3000)}</div>:<div>
     <br></br>
     
 <center><h2 id="bold">Profile</h2></center>
@@ -82,8 +85,7 @@ const Profile = () => {
                         
                         </div>
                         
-        </div>
-    
+        </div>}</div>
   )
 }
 

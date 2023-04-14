@@ -11,7 +11,7 @@ export  default function Auth(props)
         setemail(email);
         setpno(pno)
     }
-    console.log(disname);
+    // console.log(disname);
     
     return(
         

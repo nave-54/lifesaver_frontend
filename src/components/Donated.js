@@ -28,13 +28,13 @@ const Donated = () => {
       const na = localStorage.getItem("user")
     const myObject = JSON.parse(na);
     const load=async()=>{
-        console.log("Loaded")
+        // console.log("Loaded")
         const obj ={
             pno : myObject.upno
         }
         await api.post("/donated",obj)
         .then(res=>{
-            console.log(res.data[0])
+            // console.log(res.data[0])
             if(res.data!=null)
         {
             setname(res.data[0].name)
@@ -52,7 +52,7 @@ const Donated = () => {
         }
         })
         .catch(data=>{
-            console.log("fact")
+            // console.log("fact")
             setbtn(true)
             setdisabled(true)
         })
@@ -60,6 +60,9 @@ const Donated = () => {
 
     }
     useEffect(() => {
+        
+            document.title = "Donate - LifeSaver"; // Change the title here
+          
         load();
                
       },[]);
@@ -81,6 +84,14 @@ const Donated = () => {
         else if(dis==="Select")
         {
             toast.error("District Not Selected")
+        }
+        else if(anum.length>0 && anum.length!=12)
+        {   
+            toast.error("Enter Valid Aadhaar Number")
+        }
+        else if(weight<50)
+        {
+            toast.error("Weight greater than 50kgs")
         }
         else if(pin.length!=6)
         {
@@ -110,8 +121,9 @@ const Donated = () => {
                 setdisabled(true)
                 setbtn(true)
                 setTimeout(()=>{
-                    navigate("/donated")
-                },2000)
+                    navigate("/need")
+                },3000)
+                
            
         })
         .catch(()=>{
@@ -120,7 +132,11 @@ const Donated = () => {
     }
     }
   return (
+    
     <div className="container">
+        {myObject===null?<div><br></br><br></br><h1 className="dform mx-auto">Please Login and donate redirecting... </h1>{setTimeout(()=>{
+                navigate("/login")
+            },3000)}</div>:<div>
             <br></br>
             <center>
             <h2 className="dform">DONATION FORM</h2>
@@ -130,12 +146,12 @@ const Donated = () => {
                 <div className="col-md-2"></div>
                 <div className="col-md-4 col-sm-12">
                 <lable>Name :  </lable>
-                <input type="text" disabled placeholder="Eg: Ram" required = "required" value={name} className="form-control" onChange={(e)=>{setname(e.target.value)}}></input>
+                <input type="text" disabled placeholder="Eg: Ram" required = "required" value={name} className="form-control" onChange={(e)=>{setname(e.target.value.toUpperCase())}}></input>
                 <br></br>
                 </div> 
                 <div className="col-md-4 col-sm-12">
                 <lable>Email Id :  </lable>
-                <input type="text" disabled required = "required" placeholder=" Eg: abc@gmail.com" value={email} className="form-control" onChange={(e)=>{setemail(e.target.value)}}></input>
+                <input type="text" disabled required = "required" placeholder=" Eg: abc@gmail.com" value={email} className="form-control" onChange={(e)=>{setemail(e.target.value.toLowerCase())}}></input>
                 <br></br>
                 </div>
                 
@@ -155,7 +171,7 @@ const Donated = () => {
                 <div className="col-md-2"></div>
                 <div className="col-md-3 col-sm-12"><lable>Date Of Birth : </lable>
                 <input type="date" disabled={disabled} required = "required" value={dob} className="form-control" onChange={(e)=>{setdob(e.target.value)}}></input>
-                </div>
+                <br></br></div>
                 <div className="col-md-3 col-sm-12">
                 <lable>Blood Group : </lable>
                 <select value={bgrp} disabled={disabled} required = "required" className="form-control" onChange={(e)=>{setbgrp(e.target.value);
@@ -170,6 +186,7 @@ const Donated = () => {
                     <option>AB positive (AB+)</option>
                     <option>AB negative (AB-)</option>
                 </select>
+                <br></br>
                 </div>
                 <div className="col-md-2">
                     <label>Weight (Kgs) : </label>
@@ -267,7 +284,7 @@ const Donated = () => {
                 }}>Edit</button>:<input type="submit" className="btn btn-danger" value="Submit"></input>}
             <br></br><br></br></form><ToastContainer />
             </center>
-        </div>
+        </div>}</div>
   
   )
 }

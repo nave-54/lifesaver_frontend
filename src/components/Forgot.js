@@ -33,7 +33,7 @@ const Forgot = () => {
       name : fusername,
       otp : otphold
     }
-    console.log(otphold)
+    // console.log(otphold)
     api.post('/verifyotp',obj)
     .then(response=>{
       toast.success(response.data)
@@ -53,16 +53,16 @@ const Forgot = () => {
     api.post("/forgotpassotp",obj)
       .then(response=>{
         toast.success(response.data)
-        console.log("ji")
+        // console.log("ji")
       })
       .catch(data=>{
         setotp(true)
         toast.error(data.response.data)
-        console.log("error")
+        // console.log("error")
       })
     e.preventDefault()
       setotp(!otp)
-      console.log(fusername)
+      // console.log(fusername)
       
   }
   const forgot1=()=>{
@@ -73,7 +73,7 @@ const Forgot = () => {
     api.post("/forgotpass",obj)
     .then(response=>{
       toast.success(response.data)
-      console.log(response.data)
+      // console.log(response.data)
       localStorage.setItem("femail",username);
       setTimeout(()=>{
           navigate("/changepass")
@@ -81,7 +81,7 @@ const Forgot = () => {
     })
     .catch(data=>{
       toast.error(data.response.data)
-      console.log(data.response.data)
+      // console.log(data.response.data)
     })
   }
   return (

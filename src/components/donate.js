@@ -30,6 +30,9 @@ export function Donate()
     const [data,setData] = useState([])
     const navigate = useNavigate()
     useEffect(()=>{
+       
+            document.title = "Donate - LifeSaver"; // Change the title here
+        
         if(myObject!=null)
         {
             setid(myObject.uid)
@@ -44,6 +47,7 @@ export function Donate()
     //         <h1>Please Login and Donate</h1>
     //     </div>)
     // }
+    const auth = useAuth()
     const donate =(e)=>
     {
         e.preventDefault()
@@ -64,13 +68,21 @@ export function Donate()
         {
             toast.error("District Not Selected")
         }
+        else if(anum.length>0 && anum.length!=12)
+        {   
+            toast.error("Enter Valid Aadhaar Number")
+        }
+        else if(weight<50)
+        {
+            toast.error("Weight greater than 50kgs")
+        }
         else if(pin.length!=6)
         {
             toast.error("Enter Valid Pincode")
         }
         else{
         const store = {
-            id : id,
+            id : myObject.uid,
             name : name,
             pno : pn,
             email : email,
@@ -84,7 +96,7 @@ export function Donate()
             pin : pin,
             addrs : add
         }
-        console.log(store)
+        // console.log(store)
         api.post('/donate',store)
         .then(res=>{
             toast.success("Thanks... Successfully stored..")
@@ -92,7 +104,7 @@ export function Donate()
                 navigate("/need")
             },3000)
     })
-        console.log(bgrp)
+        // console.log(bgrp)
     }
     }
     return(

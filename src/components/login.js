@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect} from 'react';
 import '../bootstrap.min.css'
 import { useNavigate,Link,Outlet } from 'react-router-dom';
 import {useState} from 'react';
@@ -7,6 +7,9 @@ import {useAuth} from './Auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login=()=>{
+    // useEffect(() => {
+    //     document.title = "Login - LifeSaver"; // Change the title here
+    //   }, []);
     const navigate=useNavigate()
     const auth = useAuth()
     const[memail,setmemail]=useState("")
@@ -22,18 +25,18 @@ export const Login=()=>{
             localStorage.setItem("user", JSON.stringify(response.data))
             const na = localStorage.getItem("user")
             const myObject = JSON.parse(na);
-            console.log(myObject)
+            // console.log(myObject)
             toast.success("Signed In Successfully!!!")
-            console.log(response.data)
+            // console.log(response.data)
             if(myObject.udec)
             {
             setTimeout(()=>{
-                navigate("/donate")
+                navigate("/donated")
             },3000)
             }
             else{
                 setTimeout(()=>{
-                    navigate("/donated")
+                    navigate("/donate")
                 },3000)
                 }
         })
@@ -42,10 +45,9 @@ export const Login=()=>{
             // console.log(data.response.data)
             // setps(true)
             // seterr(data.response.data)
-            console.log(" "+data.response.data)
+            // console.log(" "+data.response.data)
         })
 
-        console.log("hi")
     }
  return(
         
