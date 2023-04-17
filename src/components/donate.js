@@ -1,7 +1,7 @@
 import {React,useState,useContext} from "react";
 import '../style.css'
 import "../bootstrap.min.css";
-import {useAuth} from './Auth';
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import api from "./Axios";
@@ -47,7 +47,7 @@ export function Donate()
     //         <h1>Please Login and Donate</h1>
     //     </div>)
     // }
-    const auth = useAuth()
+    
     const donate =(e)=>
     {
         e.preventDefault()
@@ -97,7 +97,7 @@ export function Donate()
             addrs : add
         }
         // console.log(store)
-        api.post('/donate',store)
+        axios.post("https://lifesaver.onrender.com/donate",store)
         .then(res=>{
             toast.success("Thanks... Successfully stored..")
             setTimeout(()=>{

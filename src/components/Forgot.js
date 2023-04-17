@@ -3,13 +3,11 @@ import '../bootstrap.min.css'
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 import api from "./Axios";
-import {useAuth} from './Auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 const Forgot = () => {
   const navigate = useNavigate()
-  const auth = useAuth()
   const [username,setusername] = useState("")
   const [curpass,setcurpass] = useState("")
   const [fusername,setfusername] = useState("")

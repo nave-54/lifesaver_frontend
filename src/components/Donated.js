@@ -1,7 +1,6 @@
 import {React,useState,useContext,useEffect} from "react";
 import '../style.css'
 import "../bootstrap.min.css";
-import {useAuth} from './Auth';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import api from "./Axios";

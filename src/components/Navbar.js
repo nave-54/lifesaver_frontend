@@ -1,18 +1,15 @@
 import {React,useEffect,useState} from 'react'
 // import { Outlet, Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom'
-import {useAuth} from './Auth';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../mystyle.css';
 export const Navs = () => {
-  const auth = useAuth()
     const location = useLocation();
     const na = localStorage.getItem("user")
     const myObject = JSON.parse(na);
     const [move,setmove] = useState("/donate")
-    const name = auth.disname
     useEffect(()=>{
       if(myObject!=null)
       {

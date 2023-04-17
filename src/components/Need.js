@@ -1,7 +1,6 @@
 import {React,useEffect,useState} from 'react'
 import '../style.css'
 import "../bootstrap.min.css";
-import { useAuth,Auth } from './Auth'
 import api from "./Axios";
 const Need = () => {
     const [flag,setflag] = useState(false)
@@ -141,7 +140,7 @@ const Need = () => {
               <td>{x.state}</td>
               <td>{x.dist}</td>
               <td>{x.addrs}</td>
-     </tr>:<div className='dform'><br></br><h2>No Results Found</h2></div>
+     </tr>:""
           )}
         
             

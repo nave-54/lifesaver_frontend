@@ -3,7 +3,7 @@ import '../bootstrap.min.css'
 import { useNavigate,Link,Outlet } from 'react-router-dom';
 import {useState} from 'react';
 import api from "./Axios";
-import {useAuth} from './Auth';
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Login=()=>{
@@ -11,7 +11,6 @@ export const Login=()=>{
     //     document.title = "Login - LifeSaver"; // Change the title here
     //   }, []);
     const navigate=useNavigate()
-    const auth = useAuth()
     const[memail,setmemail]=useState("")
     const[pass,setpass]=useState("")
     const login=(e)=>{
@@ -20,7 +19,7 @@ export const Login=()=>{
             memail :memail,
             pass : pass
         }
-        api.post("/login",sign)
+        axios.post("https://lifesaver.onrender.com/login",sign)
         .then((response)=>{
             localStorage.setItem("user", JSON.stringify(response.data))
             const na = localStorage.getItem("user")
@@ -65,7 +64,7 @@ export const Login=()=>{
             <div className='row'>
                 <div className='col-md-3'></div>
                 <div className='col-md-6 col-sm-12'><label>Password : </label>
-                <input type="password" value={pass} class="form-control" required="required" onChange={(e)=>setpass(e.target.value)}></input></div>
+                <input type="password" value={pass} class="form-control" required="required" onChange={(e)=>setpass(e.target.value)}></input><br></br></div>
             </div><br></br>
                         <input type="submit" value="Login" className='btn btn-outline-danger margin'></input>
                         <Link to="/forgotpass" className="btn btn-outline-danger">Forgot/Change Password</Link>

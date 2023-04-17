@@ -3,7 +3,6 @@ import './App.css';
 import { Routes,Route } from 'react-router-dom';
 import { Donate } from './components/donate';
 import { Main } from './components/Main';
-import  Auth  from './components/Auth';
 import Need from './components/Need';
 import { Navs } from './components/Navbar';
 import Success from './components/Success';
@@ -18,7 +17,7 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div>
-      <Auth>
+      
               <Routes>
                 <Route path="/" element={<><Navs/><Main/><Footer /></>}></Route>
                 <Route path="/donate" element={<><Navs/><Donate/><Footer /></>}></Route>
@@ -28,9 +27,9 @@ function App() {
                 <Route path="/forgotpass" element={<Forgot />}></Route>
                 <Route path="/changepass" element={<Newpass />}></Route>
                 <Route path="/need" element={<><Navs/><Need/><Footer /></>}></Route>
-                <Route path='/profile' element={<><Navs/><Profile /><Footer /></>}></Route>
+                <Route path='/profile' element={<><Navs/><Profile></Profile></>}></Route>
               </Routes>
-      </Auth>
+     
     </div>
   );
 }
